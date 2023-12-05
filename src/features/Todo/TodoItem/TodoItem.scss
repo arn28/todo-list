@@ -1,3 +1,5 @@
+@use '../../../styles/colors' as colors;
+
 .card {
   width: inherit;
   padding: 15px;
@@ -5,7 +7,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
   margin: 5px 0px;
   position: relative;
 }
@@ -18,16 +20,13 @@
   cursor: pointer;
 }
 
+.completeIcon,
 .icon:hover {
-  color: rgba(62, 161, 219, 1);
-}
-
-.completeIcon {
-  color: rgba(62, 161, 219, 1);
+  color: colors.$primary;
 }
 
 .trashIcon:hover {
-  color: #f00;
+  color: colors.$danger;
 }
 
 .deleteConfirmationPop {
