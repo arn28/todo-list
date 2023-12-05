@@ -6,13 +6,24 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    'vite-plugin-eslint.d.ts',
+    'vite.config.ts',
+  ],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['prettier', 'react-refresh'],
   rules: {
+    'prettier/prettier': 'error',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
   },
+  overrides: [
+    {
+      files: ['vite.config.ts'],
+    },
+  ],
 }
