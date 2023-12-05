@@ -1,0 +1,57 @@
+.mainCard {
+  border-radius: 25px;
+  background-color: #fff;
+  padding: 4%;
+  max-height: 80vh;
+  height: 80vh;
+}
+
+.title {
+  font-family: 'Dosis', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 15px;
+  height: 50px;
+}
+
+.formContainer {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  margin-bottom: 15px;
+  gap: 8px;
+}
+
+.title img {
+  border-radius: 4px;
+}
+.inputTask {
+  border: none;
+  padding: 10px;
+  border: 1px solid #eee;
+  outline: none;
+  width: 100%;
+}
+
+.inputTask::placeholder {
+  padding: 0px;
+}
+
+@media screen and (min-width: 0) {
+  .mainCard {
+    width: 80vw;
+  }
+}
+@media screen and (min-width: 768px) {
+  .mainCard {
+    width: 64vw;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .mainCard {
+    width: 48vw;
+  }
+}

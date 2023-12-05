@@ -7,7 +7,6 @@
   "tabWidth": 2,
   "endOfLine": "auto",
   "useTabs": false,
-  "parser": "typescript",
   "jsxBracketSameLine": false,
   "arrowParens": "always",
   "bracketSpacing": true
