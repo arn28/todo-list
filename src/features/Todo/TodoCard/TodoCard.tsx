@@ -32,14 +32,14 @@ export const TodoCard = () => {
             <input
               type='text'
               name='taskInput'
-              placeholder='Nombre de la tarea'
+              placeholder='Task Name'
               className='inputTask'
               autoComplete='off'
               value={inputTask}
               onChange={({ target }) => setInputTask(target.value)}
             />
             <Button onCLick={addNewTask} disabled={inputTask === ''}>
-              Agregar<i className='fas fa-plus-circle'></i>
+              Add<i className='fas fa-plus-circle'></i>
             </Button>
           </form>
           <TodoList tasks={tasks} />
