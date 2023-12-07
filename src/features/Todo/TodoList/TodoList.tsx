@@ -1,12 +1,15 @@
-import { task } from '../../../types/to-do'
+import { Task } from '../../../types/to-do'
 import { TodoItem } from '../TodoItem/TodoItem'
 import './TodoList.scss'
 interface IProps {
-  tasks: task[]
+  tasks: Task[]
 }
 export const TodoList: React.FC<IProps> = ({ tasks }) => {
   return (
-    <ul className='cardsList' data-list>
+    <ul
+      className={`cardsList ${tasks.length >= 9 ? 'extended' : ''}`}
+      data-list
+    >
       {tasks &&
         tasks.map((task) => (
           <TodoItem key={task.id} task={task.title} id={task.id} />
