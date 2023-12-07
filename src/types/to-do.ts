@@ -1,5 +1,5 @@
-export type task = {
+export type Task = {
   id: string
   title: string
-  state: 'complete' | 'incomplete'
+  completed: boolean
 }
