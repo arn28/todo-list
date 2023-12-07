@@ -1,10 +1,13 @@
 import './App.scss'
 import { TodoCard } from './features/Todo/TodoCard/TodoCard'
+import { TasksContextProvider } from './store/tasks'
 
 function App() {
   return (
     <div className='appContainer'>
-      <TodoCard />
+      <TasksContextProvider>
+        <TodoCard />
+      </TasksContextProvider>
     </div>
   )
 }
