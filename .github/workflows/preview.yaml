@@ -51,10 +51,10 @@ jobs:
               repo,
               issue_number: number,
               body: `Preview deployment: ${url}`,
-            );
+            });
 
-          env:
-            DEPLOYMENT_URL: ${{ steps.get-deployment-url.outputs.url }}
+        env:
+          DEPLOYMENT_URL: ${{ steps.get-deployment-url.outputs.url }}
 
   Cleanup-Preview:
     runs-on: ubuntu-latest
