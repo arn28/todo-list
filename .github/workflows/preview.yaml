@@ -15,18 +15,11 @@ jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, '#deploy') }}
+    outputs:
+      deployment_url: ${{ steps.deployment_url.outputs.value }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      # - name: Check for "#deploy" in commit message
-      #   run: |
-      #     if [[ "${{ github.event.head_commit.message }}" == *"#deploy"* ]]; then
-      #       echo "Commit contains #deploy, proceeding with build."
-      #     else
-      #       echo "Commit does not contain #deploy, skipping build."
-      #       exit 0
-      #     fi
 
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
@@ -44,13 +37,16 @@ jobs:
           echo "deployment_url=${deployment_url}" >> $GITHUB_ENV
           echo "Deployment URL: $deployment_url"
 
+      - id: deployment_url
+        run: echo "value=${{ env.deployment_url }}" >> $GITHUB_OUTPUT
+
   Comment-PR:
     runs-on: ubuntu-latest
     needs: [Deploy-Preview]
     steps:
       - name: Comment on PR with Deployment URL
         run: |
-          comment_body="{\"body\": \"Preview deployment: $deployment_url\"}"
+          comment_body="{\"body\": \"Preview deployment: ${{ needs.Deploy-Preview.outputs.deployment_url }}\"}"
           echo "$comment_body" > comment.json
           cat comment.json
           curl -X POST \
