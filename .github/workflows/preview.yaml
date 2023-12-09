@@ -42,10 +42,10 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: POST /repos/${{ github.repository }}/issues/${{ github.event.number }}/comments
-          body: '{"body": "Preview deployment: ${{ steps.get-deployment-url.outputs.url }}"}'
           headers:
             authorization: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
             accept: application/vnd.github.v3+json
+          body: '{"body": "Preview deployment: ${{ steps.get-deployment-url.outputs.url }}"}'
 
   Cleanup-Preview:
     runs-on: ubuntu-latest
