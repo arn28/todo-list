@@ -47,7 +47,6 @@ jobs:
             authorization: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
             accept: application/vnd.github.v3+json
 
-
   Cleanup-Preview:
     runs-on: ubuntu-latest
     needs: [Deploy-Preview]
