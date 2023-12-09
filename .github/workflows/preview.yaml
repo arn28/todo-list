@@ -39,13 +39,12 @@ jobs:
         run: echo "::set-output name=url::$(vercel --json | jq -r '.url')"
 
       - name: Comment on PR with Deployment URL
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/${{ github.repository }}/issues/${{ github.event.number }}/comments
-          headers:
-            authorization: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-            accept: application/vnd.github.v3+json
-          body: '{"body": "Preview deployment: ${{ steps.get-deployment-url.outputs.url }}"}'
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"body": "Preview deployment: ${{ steps.get-deployment-url.outputs.url }}"}' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments"
 
   Cleanup-Preview:
     runs-on: ubuntu-latest
