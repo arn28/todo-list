@@ -41,12 +41,12 @@ jobs:
       - name: Comment on PR with Deployment URL
         uses: octokit/request-action@v2.x
         with:
-          route: POST /repos/:owner/:repo/issues/:issue_number/comments
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.repository }}
-          issue_number: ${{ github.event.number }}
+          route: POST /repos/${{ github.repository }}/issues/${{ github.event.number }}/comments
           body: |
             Preview deployment: ${{ steps.get-deployment-url.outputs.url }}
+          mediaType: '{"previews":["squirrel-girl"]}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   Cleanup-Preview:
     runs-on: ubuntu-latest
