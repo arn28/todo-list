@@ -16,13 +16,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Install dependencies
         run: yarn install
 
       - name: Build and deploy to Vercel Preview
-        run: yarn vercel --prod
+        run: yarn vercel
         env:
           VERCEL_ENV: preview
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
