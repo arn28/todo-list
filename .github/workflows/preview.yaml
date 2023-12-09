@@ -32,7 +32,7 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --alias=pr-${{ github.event.number }}
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --name=pr-${{ github.event.number }}
 
       - name: Get Vercel Deployment URL
         id: get-deployment-url
@@ -62,7 +62,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     steps:
       - name: Delete Vercel Preview Deployment
-        run: vercel remove --token=${{ secrets.VERCEL_TOKEN }} --yes --alias=pr-${{ github.event.number }}
+        run: vercel remove --token=${{ secrets.VERCEL_TOKEN }} --yes --name=pr-${{ github.event.number }}
 
   Redeploy-Preview:
     runs-on: ubuntu-latest
@@ -86,4 +86,4 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --alias=pr-${{ github.event.number }}
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --name=pr-${{ github.event.number }}
