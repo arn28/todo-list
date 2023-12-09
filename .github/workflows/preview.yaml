@@ -39,12 +39,17 @@ jobs:
         run: echo "::set-output name=url::$(vercel --json | jq -r '.url')"
 
       - name: Comment on PR with Deployment URL
-        uses: octokit/request-action@v2.x
+        uses: actions/github-script@v6
         with:
-          route: POST /repos/${{ github.repository }}/issues/${{ github.event.number }}/comments
-          body: |
-            Preview deployment: ${{ steps.get-deployment-url.outputs.url }}
-          mediaType: '{"previews":["squirrel-girl"]}'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: comment } = await github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: `Preview deployment: ${{ steps.get-deployment-url.outputs.url }}`,
+            });
+            console.log(comment.html_url);
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
