@@ -1,0 +1,31 @@
+name: Delete Branch After Merge
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  delete-branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v3
+
+      - name: Delete branch after merge
+        run: |
+          # Obtenemos el nombre de la rama desde el evento de GitHub
+          branch_name="${{ github.event.pull_request.head.ref }}"
+
+          # Eliminamos la rama en el repositorio remoto
+          git push origin --delete "$branch_name"
+
+          # (Opcional) Si también deseas eliminar la rama localmente
+          # git branch -d "$branch_name"
+
+          # (Opcional) Si también deseas limpiar el directorio de trabajo local
+          # git fetch --prune
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
