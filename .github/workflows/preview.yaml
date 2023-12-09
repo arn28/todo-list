@@ -39,22 +39,14 @@ jobs:
         run: echo "::set-output name=url::$(vercel --json | jq -r '.url')"
 
       - name: Comment on PR with Deployment URL
-        uses: actions/github-script@v5
+        uses: octokit/request-action@v2.x
         with:
-          script: |
-            const url = process.env.DEPLOYMENT_URL;
-            const { owner, repo } = context.repo;
-            const { number } = context.issue;
-
-            github.issues.createComment({
-              owner,
-              repo,
-              issue_number: number,
-              body: `Preview deployment: ${url}`,
-            });
-
-        env:
-          DEPLOYMENT_URL: ${{ steps.get-deployment-url.outputs.url }}
+          route: POST /repos/:owner/:repo/issues/:issue_number/comments
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
+          issue_number: ${{ github.event.number }}
+          body: |
+            Preview deployment: ${{ steps.get-deployment-url.outputs.url }}
 
   Cleanup-Preview:
     runs-on: ubuntu-latest
