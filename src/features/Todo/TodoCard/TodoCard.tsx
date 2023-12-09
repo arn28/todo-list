@@ -39,7 +39,7 @@ export const TodoCard = () => {
               onChange={({ target }) => setInputTask(target.value)}
             />
             <Button onCLick={addNewTask} disabled={inputTask === ''}>
-              Agregar<i className='fas fa-plus-circle'></i>
+              Add<i className='fas fa-plus-circle'></i>
             </Button>
           </form>
           <TodoList tasks={tasks} />
