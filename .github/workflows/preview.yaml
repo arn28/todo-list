@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Comment on PR with Deployment URL
         run: |
-          comment_body="{\"body\": \"Preview deployment: $DEPLOYMENT_URL\"}"
+          comment_body="{\"body\": \"Preview deployment: ${{ needs.Deploy-Preview.outputs.deployment_url }}\"}"
           echo "$comment_body" > comment.json
           cat comment.json
           curl -X POST \
