@@ -1,0 +1,28 @@
+name: Vercel Production Deployment
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build and deploy to Vercel Production
+        run: yarn vercel --prod
+        env:
+          VERCEL_ENV: production
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
