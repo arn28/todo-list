@@ -43,8 +43,10 @@ jobs:
         with:
           route: POST /repos/${{ github.repository }}/issues/${{ github.event.number }}/comments
           body: '{"body": "Preview deployment: ${{ steps.get-deployment-url.outputs.url }}"}'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          headers:
+            authorization: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+            accept: application/vnd.github.v3+json
+
 
   Cleanup-Preview:
     runs-on: ubuntu-latest
