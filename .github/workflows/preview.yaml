@@ -33,8 +33,8 @@ jobs:
 
       - name: Deploy Project Artifacts to Vercel
         run: |
-          deployment_info=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --name=pr-${{ github.event.number }} | tail -n 1)
-          deployment_url=$(echo "$deployment_info" | jq -r '.url')
+          deployment_info=$(vercel deploy --token=${{ secrets.VERCEL_TOKEN }} --name=pr-${{ github.event.number }})
+          deployment_url=$(echo "$deployment_info")
           echo "deployment_url=${deployment_url}" >> $GITHUB_ENV
           echo "Deployment URL: $deployment_url"
 
