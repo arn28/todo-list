@@ -32,18 +32,16 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --name=pr-${{ github.event.number }}
-
-      - name: Get Vercel Deployment URL
-        id: get-deployment-url
-        run: echo "::set-output name=url::$(vercel --json | jq -r '.url')"
+        run: |
+          deployment_url=$(vercel deploy --json --token=${{ secrets.VERCEL_TOKEN }} --name=pr-${{ github.event.number }} | jq -r '.url')
+          echo "deployment_url=${deployment_url}" >> $GITHUB_ENV
 
       - name: Comment on PR with Deployment URL
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            -d '{"body": "Preview deployment: ${{ steps.get-deployment-url.outputs.url }}"}' \
+            -d '{"body": "Preview deployment: $deployment_url"}' \
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments"
 
   Cleanup-Preview:
