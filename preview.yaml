@@ -1,0 +1,28 @@
+name: Vercel Preview Deployment
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build and deploy to Vercel Preview
+        run: yarn vercel --prod
+        env:
+          VERCEL_ENV: preview
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
