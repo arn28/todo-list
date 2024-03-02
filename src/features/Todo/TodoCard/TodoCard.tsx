@@ -8,7 +8,7 @@ import { TasksContext } from '../../../store/tasks'
 import { generateId } from '../../../utils/helpers/generators'
 
 export const TodoCard = () => {
-  const { tasks, addTask } = useContext(TasksContext)
+  const { tasks, addTask, removeAllTasks } = useContext(TasksContext)
   const [inputTask, setInputTask] = useState('')
 
   const addNewTask = () => {
@@ -20,6 +20,16 @@ export const TodoCard = () => {
     }
     addTask(newTaskPayload)
     setInputTask('')
+  }
+
+  const removeAllTasksItems = () => {
+    //TODO: Replace with a modal confirm
+    const removeConfirm = window.confirm(
+      ' ⚠️ ¿Está seguro de eliminar TODAS las tareas?',
+    )
+    if (removeConfirm) {
+      removeAllTasks()
+    }
   }
 
   return (
@@ -52,6 +62,17 @@ export const TodoCard = () => {
           </form>
           <TodoList tasks={tasks} />
         </div>
+        {tasks.length > 1 && (
+          <div className='footer-options'>
+            <Button
+              disabled={!tasks.length}
+              type='danger'
+              onCLick={removeAllTasksItems}
+            >
+              Borrar todo <i className='fas fa-trash-alt' />
+            </Button>
+          </div>
+        )}
       </div>
     </>
   )

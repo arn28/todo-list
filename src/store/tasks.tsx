@@ -4,6 +4,7 @@ import {
   createTaskLocalStorage,
   getTasksLocalStorage,
   removeTaskLocalStorage,
+  setTasksLocalStorage,
   toggleStateTaskLocalStorage,
 } from '../utils/helpers/tasksManagement'
 interface ITasksContextProvider {
@@ -12,18 +13,18 @@ interface ITasksContextProvider {
 
 interface ITasksContext {
   tasks: Task[]
-  setTasks: (task: Task[]) => void
   addTask: (task: Task) => void
   removeTask: (taskId: string) => void
   toggleStateTask: (taskId: string) => void
+  removeAllTasks: () => void
 }
 
 export const TasksContext = createContext<ITasksContext>({
   tasks: [],
-  setTasks: () => {},
   addTask: () => {},
   removeTask: () => {},
   toggleStateTask: () => {},
+  removeAllTasks: () => {},
 })
 
 export const TasksContextProvider: React.FC<ITasksContextProvider> = ({
@@ -33,6 +34,11 @@ export const TasksContextProvider: React.FC<ITasksContextProvider> = ({
 
   const updateTasksFromLocalStorage = () => {
     setTasks(getTasksLocalStorage())
+  }
+
+  const removeAllTasks = () => {
+    setTasksLocalStorage([])
+    updateTasksFromLocalStorage()
   }
 
   const addTask = (task: Task) => {
@@ -56,7 +62,7 @@ export const TasksContextProvider: React.FC<ITasksContextProvider> = ({
 
   return (
     <TasksContext.Provider
-      value={{ tasks, setTasks, addTask, removeTask, toggleStateTask }}
+      value={{ tasks, addTask, removeTask, toggleStateTask, removeAllTasks }}
     >
       {children}
     </TasksContext.Provider>

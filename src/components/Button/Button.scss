@@ -14,6 +14,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+
   &:hover {
     filter: brightness(120%);
   }
@@ -21,5 +22,10 @@
   &.disabled {
     cursor: not-allowed;
     filter: opacity(50%);
+  }
+
+  &.danger {
+    background-image: unset;
+    background-color: colors.$danger;
   }
 }

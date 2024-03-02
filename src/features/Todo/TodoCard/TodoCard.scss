@@ -2,9 +2,9 @@
 .mainCard {
   border-radius: 8px;
   background-color: #fff;
-  padding: 4%;
-  max-height: 80vh;
-  height: 80vh;
+  padding: 3.2%;
+  max-height: 88vh;
+  // height: 80vh;
 }
 
 .title {
@@ -40,6 +40,14 @@
 
 .inputTask::placeholder {
   padding: 0px;
+}
+
+.footer-options{
+  padding-top: 16px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  // height: 64px;
 }
 
 @media screen and (min-width: 0) {
