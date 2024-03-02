@@ -11,7 +11,7 @@ export const setTasksLocalStorage = (tasks: Task[]) =>
   setLocalStorageItem(TASKS_LOCAL_STORAGE_KEY, JSON.stringify(tasks))
 
 export const createTaskLocalStorage = (task: Task) => {
-  const localTasks = [...getTasksLocalStorage(), task]
+  const localTasks = [task, ...getTasksLocalStorage()]
   setTasksLocalStorage(localTasks)
   return localTasks
 }
@@ -19,6 +19,18 @@ export const createTaskLocalStorage = (task: Task) => {
 export const removeTaskLocalStorage = (id: string) => {
   const previousTaks = getTasksLocalStorage()
   const updatedTasks = previousTaks.filter((task) => task.id !== id)
+  setTasksLocalStorage(updatedTasks)
+  return updatedTasks
+}
+
+export const toggleStateTaskLocalStorage = (id: string) => {
+  const previousTaks = getTasksLocalStorage()
+  const updatedTasks = previousTaks.map((task) => {
+    if (task.id == id) {
+      task.completed = !task.completed
+    }
+    return task
+  })
   setTasksLocalStorage(updatedTasks)
   return updatedTasks
 }

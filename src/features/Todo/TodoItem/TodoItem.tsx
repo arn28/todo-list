@@ -6,7 +6,7 @@ interface IProps {
   task: Task
 }
 export const TodoItem: React.FC<IProps> = ({ task }) => {
-  const { removeTask } = useContext(TasksContext)
+  const { removeTask, toggleStateTask } = useContext(TasksContext)
 
   const removeTaskItem = () => {
     //TODO: Replace with a modal confirm
@@ -17,16 +17,24 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
       removeTask(task.id)
     }
   }
+
+  const toggleStateTaskItem = () => {
+    toggleStateTask(task.id)
+  }
   return (
     <li className='card'>
       <div>
-        <i className='fa-check-square icon far'></i>
-        <span className='task'>{task.title}</span>
+        <i
+          className={`fa-check-square icon far ${
+            task.completed ? 'completeIcon' : ''
+          }`}
+          onClick={toggleStateTaskItem}
+        />
+        <span className={`task ${task.completed ? 'done' : ''}`}>
+          {task.title}
+        </span>
       </div>
-      <i
-        className='fas fa-trash-alt trashIcon icon'
-        onClick={removeTaskItem}
-      ></i>
+      <i className='fas fa-trash-alt trashIcon icon' onClick={removeTaskItem} />
     </li>
   )
 }
