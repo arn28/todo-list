@@ -12,6 +12,7 @@ export const TodoCard = () => {
   const [inputTask, setInputTask] = useState('')
 
   const addNewTask = () => {
+    if (!inputTask) return
     const newTaskPayload = {
       id: generateId(),
       title: inputTask,
@@ -28,13 +29,20 @@ export const TodoCard = () => {
           <img src={iconTodo} alt='' />
         </div>
         <div>
-          <form className='formContainer'>
+          <form
+            className='formContainer'
+            onSubmit={(e) => {
+              e.preventDefault()
+              addNewTask()
+            }}
+          >
             <input
               type='text'
               name='taskInput'
               placeholder='Nombre de la tarea'
               className='inputTask'
               autoComplete='off'
+              autoFocus={true}
               value={inputTask}
               onChange={({ target }) => setInputTask(target.value)}
             />

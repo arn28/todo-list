@@ -1,5 +1,5 @@
 .mainCard {
-  border-radius: 25px;
+  border-radius: 8px;
   background-color: #fff;
   padding: 4%;
   max-height: 80vh;
@@ -33,6 +33,7 @@
   border: 1px solid #eee;
   outline: none;
   width: 100%;
+  border-radius: 4px;
 }
 
 .inputTask::placeholder {
