@@ -1,6 +1,10 @@
 import { createContext, useState, useEffect } from 'react'
 import { Task } from '../types/to-do'
-import { getTasksLocalStorage } from '../utils/helpers/tasksManagement'
+import {
+  createTaskLocalStorage,
+  getTasksLocalStorage,
+  removeTaskLocalStorage,
+} from '../utils/helpers/tasksManagement'
 interface ITasksContextProvider {
   children: React.ReactNode
 }
@@ -8,11 +12,15 @@ interface ITasksContextProvider {
 interface ITasksContext {
   tasks: Task[]
   setTasks: (task: Task[]) => void
+  addTask: (task: Task) => void
+  removeTask: (taskId: string) => void
 }
 
 export const TasksContext = createContext<ITasksContext>({
   tasks: [],
   setTasks: () => {},
+  addTask: () => {},
+  removeTask: () => {},
 })
 
 export const TasksContextProvider: React.FC<ITasksContextProvider> = ({
@@ -20,12 +28,26 @@ export const TasksContextProvider: React.FC<ITasksContextProvider> = ({
 }) => {
   const [tasks, setTasks] = useState<Task[]>([])
 
-  useEffect(() => {
+  const updateTasksFromLocalStorage = () => {
     setTasks(getTasksLocalStorage())
+  }
+
+  const addTask = (task: Task) => {
+    createTaskLocalStorage(task)
+    updateTasksFromLocalStorage()
+  }
+
+  const removeTask = (taskId: string) => {
+    removeTaskLocalStorage(taskId)
+    updateTasksFromLocalStorage()
+  }
+
+  useEffect(() => {
+    updateTasksFromLocalStorage()
   }, [])
 
   return (
-    <TasksContext.Provider value={{ tasks, setTasks }}>
+    <TasksContext.Provider value={{ tasks, setTasks, addTask, removeTask }}>
       {children}
     </TasksContext.Provider>
   )

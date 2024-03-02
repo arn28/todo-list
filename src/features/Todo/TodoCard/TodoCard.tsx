@@ -8,7 +8,7 @@ import { TasksContext } from '../../../store/tasks'
 import { generateId } from '../../../utils/helpers/generators'
 
 export const TodoCard = () => {
-  const { tasks, setTasks } = useContext(TasksContext)
+  const { tasks, addTask } = useContext(TasksContext)
   const [inputTask, setInputTask] = useState('')
 
   const addNewTask = () => {
@@ -17,7 +17,7 @@ export const TodoCard = () => {
       title: inputTask,
       completed: false,
     }
-    setTasks([...tasks, newTaskPayload])
+    addTask(newTaskPayload)
     setInputTask('')
   }
 
@@ -39,7 +39,7 @@ export const TodoCard = () => {
               onChange={({ target }) => setInputTask(target.value)}
             />
             <Button onCLick={addNewTask} disabled={inputTask === ''}>
-              Agregar Task<i className='fas fa-plus-circle'></i>
+              Agregar<i className='fas fa-plus-circle'></i>
             </Button>
           </form>
           <TodoList tasks={tasks} />

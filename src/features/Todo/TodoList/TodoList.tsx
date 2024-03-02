@@ -10,10 +10,7 @@ export const TodoList: React.FC<IProps> = ({ tasks }) => {
       className={`cardsList ${tasks.length >= 9 ? 'extended' : ''}`}
       data-list
     >
-      {tasks &&
-        tasks.map((task) => (
-          <TodoItem key={task.id} task={task.title} id={task.id} />
-        ))}
+      {tasks && tasks.map((task) => <TodoItem key={task.id} task={task} />)}
     </ul>
   )
 }
