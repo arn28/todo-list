@@ -1,8 +1,7 @@
-// import './TodoCard.scss'
+import './AddTaskDialog.scss'
 import { Button } from '@/components/Button/Button'
 import { useContext } from 'react'
 import { useState } from 'react'
-// import { TodoList } from '../TodoList/TodoList'
 import { TasksContext } from '@/store/tasks'
 import { generateId } from '@/utils/helpers/generators'
 import {
@@ -32,7 +31,7 @@ export const AddTaskDialog = ({
     if (!inputTask) return
     const newTaskPayload = {
       id: generateId(),
-      title: inputTask,
+      title: inputTask.trim(),
       completed: false,
     }
     addTask(newTaskPayload)
@@ -67,7 +66,13 @@ export const AddTaskDialog = ({
           </form>
           <DialogFooter className='gap-1'>
             <DialogClose>Cancel</DialogClose>
-            <Button onCLick={addNewTask} disabled={inputTask === ''}>
+            <Button
+              onCLick={() => {
+                addNewTask()
+                setOpenModal(false)
+              }}
+              disabled={inputTask.trim() === ''}
+            >
               <i className='fas fa-plus-circle' />
               Agregar
             </Button>
