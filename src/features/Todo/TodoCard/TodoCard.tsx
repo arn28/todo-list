@@ -6,10 +6,12 @@ import { TodoList } from '../TodoList/TodoList'
 import { useContext } from 'react'
 import { TasksContext } from '../../../store/tasks'
 import { generateId } from '../../../utils/helpers/generators'
+import { AddTaskDialog } from '@/features/AddTaskDialog/AddTaskDialog'
 
 export const TodoCard = () => {
   const { tasks, addTask, removeAllTasks } = useContext(TasksContext)
   const [inputTask, setInputTask] = useState('')
+  const [openAddTaskModal, setOpenAddTaskModal] = useState(false)
 
   const addNewTask = () => {
     if (!inputTask) return
@@ -56,7 +58,14 @@ export const TodoCard = () => {
               value={inputTask}
               onChange={({ target }) => setInputTask(target.value)}
             />
-            <Button onCLick={addNewTask} disabled={inputTask === ''}>
+            {/* <Button onCLick={addNewTask} disabled={inputTask === ''}>
+              Agregar<i className='fas fa-plus-circle'></i>
+            </Button> */}
+            <Button
+              onCLick={() => {
+                setOpenAddTaskModal(true)
+              }}
+            >
               Agregar<i className='fas fa-plus-circle'></i>
             </Button>
           </form>
@@ -74,6 +83,10 @@ export const TodoCard = () => {
           </div>
         )}
       </div>
+      <AddTaskDialog
+        openModal={openAddTaskModal}
+        setOpenModal={setOpenAddTaskModal}
+      />
     </>
   )
 }
