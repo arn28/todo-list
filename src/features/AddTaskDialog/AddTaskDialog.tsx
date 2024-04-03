@@ -58,6 +58,7 @@ export const AddTaskDialog = ({
               name='taskInput'
               placeholder='Nombre de la tarea'
               className='inputTask'
+              maxLength={150}
               autoComplete='off'
               autoFocus={true}
               value={inputTask}
