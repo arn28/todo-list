@@ -11,6 +11,7 @@ module.exports = {
     '.eslintrc.cjs',
     'vite-plugin-eslint.d.ts',
     'vite.config.ts',
+    'tailwind.config.js',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['prettier', 'react-refresh'],

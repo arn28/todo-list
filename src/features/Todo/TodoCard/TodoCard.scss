@@ -1,4 +1,4 @@
-@use '../../../styles/colors' as colors;
+@use '@/styles/colors' as colors;
 .mainCard {
   border-radius: 8px;
   background-color: #fff;
@@ -21,16 +21,17 @@
   justify-content: space-between;
   align-items: center;
   display: flex;
-  margin-bottom: 15px;
   gap: 8px;
+  position: relative;
 }
 
 .title img {
   border-radius: 4px;
 }
-.inputTask {
+.inputSearchTask {
   border: none;
   padding: 10px;
+  padding-left: 40px;
   border: 1px solid #eee;
   outline: none;
   width: 100%;
@@ -38,16 +39,25 @@
   color: colors.$text;
 }
 
-.inputTask::placeholder {
-  padding: 0px;
-}
-
-.footer-options{
+.footer-options {
   padding-top: 16px;
   display: flex;
   justify-content: end;
   align-items: center;
   // height: 64px;
+}
+
+.search-task-icon {
+  color: colors.$primary;
+  position: absolute;
+  left: 16px;
+}
+
+.close-search-task-icon {
+  color: colors.$text;
+  position: absolute;
+  right: 16px;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 0) {

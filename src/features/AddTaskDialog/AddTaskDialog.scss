@@ -1,0 +1,11 @@
+@use '@/styles/colors' as colors;
+
+.inputTask {
+  border: none;
+  padding: 10px;
+  border: 1px solid #eee;
+  outline: none;
+  width: 100%;
+  border-radius: 4px;
+  color: colors.$text;
+}
