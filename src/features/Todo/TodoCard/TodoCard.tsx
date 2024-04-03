@@ -33,13 +33,11 @@ export const TodoCard = () => {
     [inputSearchTask, tasks],
   )
   useEffect(() => {
-    // alert(JSON.stringify(localStorage))
     setVisibleTasks(tasks)
     setInputSearchTask('')
   }, [tasks])
 
   useEffect(() => {
-    console.log('🚀 ~ useEffect ~ searchedTasks:', searchedTasks())
     const searchedTasksUpdated = searchedTasks()
     setVisibleTasks(searchedTasksUpdated)
   }, [searchedTasks])
