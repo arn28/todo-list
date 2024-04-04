@@ -28,15 +28,17 @@
 .title img {
   border-radius: 4px;
 }
+
 .inputSearchTask {
   border: none;
   padding: 10px;
-  padding-left: 40px;
-  border: 1px solid #eee;
+  padding-left: 32px;
+  border-bottom: 0.4px solid colors.$text-light;
   outline: none;
   width: 100%;
-  border-radius: 4px;
+  // border-radius: 4px;
   color: colors.$text;
+  background-color: unset;
 }
 
 .footer-options {
@@ -48,9 +50,9 @@
 }
 
 .search-task-icon {
-  color: colors.$primary;
+  color: colors.$text-light;
   position: absolute;
-  left: 16px;
+  left: 8px;
 }
 
 .close-search-task-icon {

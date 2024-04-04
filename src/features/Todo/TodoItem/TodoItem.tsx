@@ -1,12 +1,14 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import './TodoItem.scss'
 import { TasksContext } from '../../../store/tasks'
 import { Task } from '../../../types/to-do'
+import { ViewEditTaskDialog } from '@/features/ViewEditTaskDialog/ViewEditTaskDialog'
 interface IProps {
   task: Task
 }
 export const TodoItem: React.FC<IProps> = ({ task }) => {
   const { removeTask, toggleStateTask } = useContext(TasksContext)
+  const [openViewEditModal, setOpenViewEditModal] = useState(false)
 
   const removeTaskItem = () => {
     //TODO: Replace with a modal confirm
@@ -22,17 +24,32 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
     toggleStateTask(task.id)
   }
   return (
-    <li className='card'>
-      <i
-        className={` ${
-          task.completed ? 'fas fa-check-square' : 'far fa-square'
-        } icon far ${task.completed ? 'completeIcon' : ''}`}
-        onClick={toggleStateTaskItem}
+    <>
+      <li
+        className='card'
+        onClick={() => {
+          setOpenViewEditModal(true)
+        }}
+      >
+        <i
+          className={` ${
+            task.completed ? 'fas fa-check-square' : 'far fa-square'
+          } icon far ${task.completed ? 'completeIcon' : ''}`}
+          onClick={toggleStateTaskItem}
+        />
+        <span className={`task ${task.completed ? 'done' : ''}`}>
+          {task.title}
+        </span>
+        <i
+          className='fas fa-trash-alt trashIcon icon'
+          onClick={removeTaskItem}
+        />
+      </li>
+      <ViewEditTaskDialog
+        openModal={openViewEditModal}
+        setOpenModal={setOpenViewEditModal}
+        task={task}
       />
-      <span className={`task ${task.completed ? 'done' : ''}`}>
-        {task.title}
-      </span>
-      <i className='fas fa-trash-alt trashIcon icon' onClick={removeTaskItem} />
-    </li>
+    </>
   )
 }

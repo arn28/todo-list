@@ -1,4 +1,4 @@
-import './AddTaskDialog.scss'
+import './ViewEditTaskDialog.scss'
 import { Button } from '@/components/Button/Button'
 import { useContext } from 'react'
 import { useState } from 'react'
@@ -19,15 +19,20 @@ import { Task } from '@/types/to-do'
 interface IAddTaskDialogProps {
   openModal: boolean
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+  rol?: 'create' | 'edit' | 'view'
+  task?: Task
 }
 
-export const AddTaskDialog = ({
+export const ViewEditTaskDialog = ({
   openModal,
   setOpenModal,
+  task,
 }: IAddTaskDialogProps) => {
   const { addTask } = useContext(TasksContext)
-  const [inputTitleTask, setInputTitleTask] = useState('')
-  const [inputDescriptionTask, setInputDescriptionTask] = useState('')
+  const [inputTitleTask, setInputTitleTask] = useState(task?.title ?? '')
+  const [inputDescriptionTask, setInputDescriptionTask] = useState(
+    task?.description ?? '',
+  )
   const inputDescriptionTaskCounter = inputDescriptionTask.length
 
   const addNewTask = () => {

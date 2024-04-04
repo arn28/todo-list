@@ -1,6 +1,9 @@
-import { Task } from '../../types/to-do'
-import { TASKS_LOCAL_STORAGE_KEY } from './constants/tasks'
-import { getLocalStorageItem, setLocalStorageItem } from './localStorage'
+import { Task } from '@/types/to-do'
+import { TASKS_LOCAL_STORAGE_KEY } from '@/utils/constants/tasks'
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from '@/utils/helpers/localStorage'
 
 export const getTasksLocalStorage = (): Task[] => {
   const localTasks = getLocalStorageItem(TASKS_LOCAL_STORAGE_KEY)

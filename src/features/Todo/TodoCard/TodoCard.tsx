@@ -49,7 +49,7 @@ export const TodoCard = () => {
           <img src={iconTodo} alt='' />
         </div>
         <div>
-          <div className='flex gap-2 mb-4'>
+          <div className='flex gap-4 mb-4'>
             <form
               className='formContainer'
               onSubmit={(e) => {
