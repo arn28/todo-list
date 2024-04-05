@@ -3,6 +3,7 @@ import './TodoItem.scss'
 import { TasksContext } from '../../../store/tasks'
 import { Task } from '../../../types/to-do'
 import { ViewEditTaskDialog } from '@/features/ViewEditTaskDialog/ViewEditTaskDialog'
+import { VIEW_EDIT_MODAL_MODE } from '@/utils/constants/tasks'
 interface IProps {
   task: Task
 }
@@ -27,9 +28,9 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
     <>
       <li
         className='card'
-        onClick={() => {
-          setOpenViewEditModal(true)
-        }}
+        // onClick={() => {
+        //   setOpenViewEditModal(true)
+        // }}
       >
         <i
           className={` ${
@@ -37,7 +38,12 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
           } icon far ${task.completed ? 'completeIcon' : ''}`}
           onClick={toggleStateTaskItem}
         />
-        <span className={`task ${task.completed ? 'done' : ''}`}>
+        <span
+          onClick={() => {
+            setOpenViewEditModal(true)
+          }}
+          className={`task ${task.completed ? 'done' : ''}`}
+        >
           {task.title}
         </span>
         <i
@@ -49,6 +55,7 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
         openModal={openViewEditModal}
         setOpenModal={setOpenViewEditModal}
         task={task}
+        mode={VIEW_EDIT_MODAL_MODE.VIEW}
       />
     </>
   )

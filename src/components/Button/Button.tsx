@@ -4,17 +4,17 @@ interface IProps {
   children: React.ReactNode
   disabled?: boolean
   type?: 'primary' | 'danger'
-  onCLick?: () => void
+  onClick?: () => void
 }
 export const Button: React.FC<IProps> = ({
   children,
-  onCLick,
+  onClick,
   disabled = false,
   type = 'primary',
 }) => {
   return (
     <button
-      onClick={onCLick}
+      onClick={onClick}
       type='button'
       className={`mainButton ${disabled ? 'disabled' : ''} ${type} `}
       data-form-btn

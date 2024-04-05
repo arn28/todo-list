@@ -15,3 +15,15 @@
     height: 8rem;
   }
 }
+
+.task-status {
+  i {
+    font-size: 0.4rem;
+  }
+  &.completed {
+    color: colors.$success;
+  }
+  &.pending {
+    color: colors.$danger;
+  }
+}
