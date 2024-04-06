@@ -5,7 +5,7 @@ import { Button } from '../../../components/Button/Button'
 import { TodoList } from '../TodoList/TodoList'
 import { useContext } from 'react'
 import { TasksContext } from '../../../store/tasks'
-import { AddTaskDialog } from '@/features/AddTaskDialog/AddTaskDialog'
+import { AddTaskDialog } from '@/features/TaskDialog/AddTaskDialog/AddTaskDialog'
 
 export const TodoCard = () => {
   const { tasks, removeAllTasks } = useContext(TasksContext)
@@ -77,7 +77,7 @@ export const TodoCard = () => {
               )}
             </form>
             <Button
-              onCLick={() => {
+              onClick={() => {
                 setOpenAddTaskModal(true)
               }}
             >
@@ -91,7 +91,7 @@ export const TodoCard = () => {
             <Button
               disabled={!tasks.length}
               type='danger'
-              onCLick={removeAllTasksItems}
+              onClick={removeAllTasksItems}
             >
               Borrar todo <i className='fas fa-trash-alt' />
             </Button>

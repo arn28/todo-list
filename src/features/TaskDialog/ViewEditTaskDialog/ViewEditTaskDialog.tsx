@@ -1,6 +1,6 @@
 import './ViewEditTaskDialog.scss'
 import { Button } from '@/components/Button/Button'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { TasksContext } from '@/store/tasks'
 import { generateId } from '@/utils/helpers/generators'
@@ -9,13 +9,13 @@ import {
   DialogClose,
   DialogContent,
   DialogFooter,
-  //   DialogDescription,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  //   DialogTrigger,
 } from '@/components/Dialog/Dialog'
 import { Task } from '@/types/to-do'
 import { VIEW_EDIT_MODAL_MODE } from '@/utils/constants/tasks'
+import { TaskOptionsDropdown } from '@/features/Todo'
 
 interface IAddTaskDialogProps {
   openModal: boolean
@@ -46,6 +46,7 @@ export const ViewEditTaskDialog = ({
     setModalMode(modalModeToggledValue)
   }
 
+  //TODO: replace addNewTask with UpdateTask
   const addNewTask = () => {
     if (!inputTitleTask) return
     const newTaskPayload: Task = {
@@ -59,21 +60,42 @@ export const ViewEditTaskDialog = ({
     setInputDescriptionTask('')
   }
 
+  const onCancelEdition = () => {
+    toggleModalMode()
+    setInputTitleTask(task?.title)
+    setInputDescriptionTask(task?.description ?? '')
+  }
+
+  const onCloseModal = () => {
+    setOpenModal(false)
+    setModalMode(mode)
+  }
+
+  useEffect(() => {
+    setModalMode(mode)
+  }, [mode])
+
   return (
     <>
-      <Dialog open={openModal} onOpenChange={setOpenModal}>
-        <DialogContent className=''>
+      <Dialog open={openModal} onOpenChange={onCloseModal}>
+        <DialogContent>
           <DialogHeader>
             {modalMode === VIEW_EDIT_MODAL_MODE.EDIT ? (
               <DialogTitle>Editar tarea</DialogTitle>
             ) : (
-              <DialogTitle>
-                {inputTitleTask}
-                <i
-                  className='fas fa-ellipsis-v mx-2 text-light'
-                  onClick={toggleModalMode}
-                ></i>
-              </DialogTitle>
+              <>
+                <DialogTitle>{inputTitleTask}</DialogTitle>
+                <DialogDescription>
+                  <span
+                    className={`text-xs flex items-center task-status ${
+                      task.completed ? 'completed' : 'pending'
+                    }`}
+                  >
+                    <i className='fas fa-circle mr-1'></i>
+                    {task.completed ? 'Completado' : 'Pendiente'}
+                  </span>
+                </DialogDescription>
+              </>
             )}
           </DialogHeader>
           {modalMode === VIEW_EDIT_MODAL_MODE.EDIT ? (
@@ -100,17 +122,19 @@ export const ViewEditTaskDialog = ({
                 value={inputTitleTask}
                 onChange={({ target }) => setInputTitleTask(target.value)}
               />
-              <label htmlFor='taskTitleInput' className='font-bold text-sm'>
+              <label
+                htmlFor='taskDescriptionInput'
+                className='font-bold text-sm'
+              >
                 Descripción de la tarea:
               </label>
               <textarea
-                name='taskTitleInput'
-                id='taskTitleInput'
+                name='taskDescriptionInput'
+                id='taskDescriptionInput'
                 placeholder='Agrega una descripción breve'
                 className='inputTask'
                 maxLength={250}
                 autoComplete='off'
-                autoFocus={true}
                 value={inputDescriptionTask}
                 onChange={({ target }) => setInputDescriptionTask(target.value)}
               />
@@ -118,21 +142,13 @@ export const ViewEditTaskDialog = ({
             </form>
           ) : (
             <>
-              <p>{inputDescriptionTask}</p>
-              <p
-                className={`text-xs flex items-center task-status ${
-                  task.completed ? 'completed' : 'pending'
-                }`}
-              >
-                <i className='fas fa-circle mr-1'></i>
-                {task.completed ? 'Completado' : 'Pendiente'}
-              </p>
+              <span>{inputDescriptionTask}</span>
             </>
           )}
           <DialogFooter className='gap-1'>
             {modalMode === VIEW_EDIT_MODAL_MODE.EDIT ? (
               <>
-                <DialogClose onClick={toggleModalMode}>Cancel</DialogClose>
+                <button onClick={onCancelEdition}>Cancelar</button>
                 <Button
                   onClick={() => {
                     // addNewTask()
@@ -148,14 +164,10 @@ export const ViewEditTaskDialog = ({
             ) : (
               <>
                 <DialogClose>Cerrar</DialogClose>
-                <Button
-                  onClick={() => {
-                    toggleModalMode()
-                  }}
-                >
-                  <i className='fas fa-ellipsis-v'></i>
-                  Opciones
-                </Button>
+                <TaskOptionsDropdown
+                  task={task}
+                  onEditClick={toggleModalMode}
+                />
               </>
             )}
           </DialogFooter>

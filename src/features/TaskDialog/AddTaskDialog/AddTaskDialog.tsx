@@ -90,9 +90,9 @@ export const AddTaskDialog = ({
             <span className='text-xs place-self-end'>{`${inputDescriptionTaskCounter}/250`}</span>
           </form>
           <DialogFooter className='gap-1'>
-            <DialogClose>Cancel</DialogClose>
+            <DialogClose>Cancelar</DialogClose>
             <Button
-              onCLick={() => {
+              onClick={() => {
                 addNewTask()
                 setOpenModal(false)
               }}
