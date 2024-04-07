@@ -1,26 +1,107 @@
-name: GitHub Actions Vercel Preview Deployment
+# name: GitHub Actions Vercel Preview Deployment
 
+# env:
+#   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+#   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+# on:
+#   pull_request:
+#     branches:
+#       - dev
+#   push:
+#     paths:
+#       - '**/*'
+
+# jobs:
+#   Deploy-Preview:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Set unique PR identifier
+#         run: echo "PR_NUMBER=${{ github.event.number }}" >> $GITHUB_ENV
+
+#       - name: Install Vercel CLI
+#         run: npm install --global vercel@canary
+
+#       - name: Pull Vercel Environment Information
+#         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+#       - name: Build Project Artifacts
+#         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+#       - name: Deploy Project Artifacts to Vercel
+#         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --alias=pr-${{ github.event.number }}
+
+#       - name: Get Vercel Deployment URL
+#         id: get-deployment-url
+#         run: echo "::set-output name=url::$(vercel --json | jq -r '.url')"
+
+#       - name: Comment on PR with Deployment URL
+#         uses: actions/github-script@v5
+#         with:
+#           script: |
+#             const url = process.env.DEPLOYMENT_URL;
+#             const { owner, repo } = context.repo;
+#             const { number } = context.issue;
+
+#             github.issues.createComment({
+#               owner,
+#               repo,
+#               issue_number: number,
+#               body: `Preview deployment: ${url}`,
+#             );
+
+#           env:
+#             DEPLOYMENT_URL: ${{ steps.get-deployment-url.outputs.url }}
+
+#   Cleanup-Preview:
+#     runs-on: ubuntu-latest
+#     needs: [Deploy-Preview]
+#     if: github.event_name == 'pull_request' && github.event.action == 'closed'
+#     steps:
+#       - name: Delete Vercel Preview Deployment
+#         run: vercel remove --token=${{ secrets.VERCEL_TOKEN }} --yes --alias=pr-${{ github.event.number }}
+
+#   Redeploy-Preview:
+#     runs-on: ubuntu-latest
+#     needs: [Deploy-Preview]
+#     if: |
+#       github.event_name == 'push' &&
+#       startsWith(github.ref, 'refs/heads/') &&
+#       github.event.pull_request &&
+#       github.event.pull_request.base.ref == 'dev'
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       - name: Install Vercel CLI
+#         run: npm install --global vercel@canary
+
+#       - name: Pull Vercel Environment Information
+#         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+#       - name: Build Project Artifacts
+#         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+#       - name: Deploy Project Artifacts to Vercel
+#         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --alias=pr-${{ github.event.number }}
+
+name: GitHub Actions Vercel Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
 on:
-  pull_request:
+  push:
     branches:
       - dev
-  push:
-    paths:
-      - '**/*'
 
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set unique PR identifier
-        run: echo "PR_NUMBER=${{ github.event.number }}" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
 
       - name: Install Vercel CLI
         run: npm install --global vercel@canary
@@ -32,58 +113,4 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --alias=pr-${{ github.event.number }}
-
-      - name: Get Vercel Deployment URL
-        id: get-deployment-url
-        run: echo "::set-output name=url::$(vercel --json | jq -r '.url')"
-
-      - name: Comment on PR with Deployment URL
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const url = process.env.DEPLOYMENT_URL;
-            const { owner, repo } = context.repo;
-            const { number } = context.issue;
-
-            github.issues.createComment({
-              owner,
-              repo,
-              issue_number: number,
-              body: `Preview deployment: ${url}`,
-            );
-
-          env:
-            DEPLOYMENT_URL: ${{ steps.get-deployment-url.outputs.url }}
-
-  Cleanup-Preview:
-    runs-on: ubuntu-latest
-    needs: [Deploy-Preview]
-    if: github.event_name == 'pull_request' && github.event.action == 'closed'
-    steps:
-      - name: Delete Vercel Preview Deployment
-        run: vercel remove --token=${{ secrets.VERCEL_TOKEN }} --yes --alias=pr-${{ github.event.number }}
-
-  Redeploy-Preview:
-    runs-on: ubuntu-latest
-    needs: [Deploy-Preview]
-    if: |
-      github.event_name == 'push' &&
-      startsWith(github.ref, 'refs/heads/') &&
-      github.event.pull_request &&
-      github.event.pull_request.base.ref == 'dev'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Vercel CLI
-        run: npm install --global vercel@canary
-
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --alias=pr-${{ github.event.number }}
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}

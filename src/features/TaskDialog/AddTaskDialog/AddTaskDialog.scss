@@ -1,0 +1,17 @@
+@use '@/styles/colors' as colors;
+.formContainer {
+  .inputTask {
+    border: none;
+    padding: 10px;
+    border: 1px solid #eee;
+    outline: none;
+    width: 100%;
+    border-radius: 4px;
+    color: colors.$text;
+  }
+
+  textarea {
+    resize: none;
+    height: 8rem;
+  }
+}

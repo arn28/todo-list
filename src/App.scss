@@ -21,3 +21,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.text-danger {
+  color: colors.$danger;
+}
+
+.text-color {
+  color: colors.$text;
+}
+
+.text-primary-blue {
+  color: colors.$primary;
+}
+
+.text-secondary-purple {
+  color: colors.$secondary;
+}
