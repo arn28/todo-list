@@ -152,7 +152,7 @@ export const ViewEditTaskDialog = ({
                   onClick={updateTaskItem}
                   disabled={inputTitleTask.trim() === ''}
                 >
-                  <i className='fas fa-plus-circle' />
+                  <i className='fas fa-save' />
                   Guardar
                 </Button>
               </>
