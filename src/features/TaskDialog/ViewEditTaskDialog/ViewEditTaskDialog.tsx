@@ -3,7 +3,6 @@ import { Button } from '@/components/Button/Button'
 import { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { TasksContext } from '@/store/tasks'
-import { generateId } from '@/utils/helpers/generators'
 import {
   Dialog,
   DialogClose,
@@ -30,7 +29,7 @@ export const ViewEditTaskDialog = ({
   mode,
   task,
 }: IAddTaskDialogProps) => {
-  const { addTask } = useContext(TasksContext)
+  const { updateTask } = useContext(TasksContext)
   const [inputTitleTask, setInputTitleTask] = useState(task?.title ?? '')
   const [inputDescriptionTask, setInputDescriptionTask] = useState(
     task?.description ?? '',
@@ -46,18 +45,16 @@ export const ViewEditTaskDialog = ({
     setModalMode(modalModeToggledValue)
   }
 
-  //TODO: replace addNewTask with UpdateTask
-  const addNewTask = () => {
+  const updateTaskItem = () => {
     if (!inputTitleTask) return
-    const newTaskPayload: Task = {
-      id: generateId(),
+    const updatedTaskPayload: Task = {
+      id: task.id,
       title: inputTitleTask.trim(),
       description: inputDescriptionTask.trim(),
-      completed: false,
+      completed: task.completed,
     }
-    addTask(newTaskPayload)
-    setInputTitleTask('')
-    setInputDescriptionTask('')
+    updateTask(updatedTaskPayload)
+    toggleModalMode()
   }
 
   const onCancelEdition = () => {
@@ -103,8 +100,6 @@ export const ViewEditTaskDialog = ({
               className='formContainer flex-col items-start'
               onSubmit={(e) => {
                 e.preventDefault()
-                addNewTask()
-                setOpenModal(false)
               }}
             >
               <label htmlFor='taskTitleInput' className='font-bold text-sm'>
@@ -127,6 +122,10 @@ export const ViewEditTaskDialog = ({
                 className='font-bold text-sm'
               >
                 Descripción de la tarea:
+                <span className='text-xs text-light font-normal'>
+                  {' '}
+                  (opcional)
+                </span>
               </label>
               <textarea
                 name='taskDescriptionInput'
@@ -150,11 +149,7 @@ export const ViewEditTaskDialog = ({
               <>
                 <button onClick={onCancelEdition}>Cancelar</button>
                 <Button
-                  onClick={() => {
-                    // addNewTask()
-                    // setOpenModal(false)
-                    toggleModalMode()
-                  }}
+                  onClick={updateTaskItem}
                   disabled={inputTitleTask.trim() === ''}
                 >
                   <i className='fas fa-plus-circle' />
