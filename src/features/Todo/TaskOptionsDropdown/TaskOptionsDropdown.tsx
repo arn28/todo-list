@@ -50,10 +50,8 @@ export const TaskOptionsDropdown = ({
         {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
         {/* <DropdownMenuSeparator /> */}
         <DropdownMenuItem onClick={onEditClick}>Editar</DropdownMenuItem>
-        <DropdownMenuItem>
-          <span className='text-sm text-danger' onClick={removeTaskItem}>
-            Eliminar
-          </span>
+        <DropdownMenuItem onClick={removeTaskItem}>
+          <span className='text-sm text-danger'>Eliminar</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

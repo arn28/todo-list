@@ -5,7 +5,7 @@ import { TasksContextProvider } from './store/tasks'
 
 function App() {
   return (
-    <div className='appContainer'>
+    <div className='appContainer h-svh'>
       <TasksContextProvider>
         <TodoCard />
         <FooterAttribution />
