@@ -54,8 +54,6 @@ export const AddTaskDialog = ({
             className='formContainer flex-col items-start'
             onSubmit={(e) => {
               e.preventDefault()
-              addNewTask()
-              setOpenModal(false)
             }}
           >
             <label htmlFor='taskTitleInput' className='font-bold text-sm'>
@@ -75,6 +73,10 @@ export const AddTaskDialog = ({
             />
             <label htmlFor='taskTitleInput' className='font-bold text-sm'>
               Descripción de la tarea:
+              <span className='text-xs text-light font-normal'>
+                {' '}
+                (opcional)
+              </span>
             </label>
             <textarea
               name='taskTitleInput'

@@ -1,4 +1,3 @@
-// import { Button } from '@/components/Button/Button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,9 +47,7 @@ export const TaskOptionsDropdown = ({
       <DropdownMenuContent>
         {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
         {/* <DropdownMenuSeparator /> */}
-        <DropdownMenuItem disabled onClick={onEditClick}>
-          Editar
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={onEditClick}>Editar</DropdownMenuItem>
         <DropdownMenuItem>
           <span className='text-sm text-danger' onClick={removeTaskItem}>
             Eliminar
