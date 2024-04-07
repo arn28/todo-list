@@ -29,6 +29,8 @@ export const TaskOptionsDropdown = ({
       ' ⚠️ ¿Está seguro de eliminar esta tarea?',
     )
     if (removeConfirm) {
+      //code to remove [style="pointer-events: none;"] added by modal and dropdown that avoids clicking on the body
+      document.querySelector('body')?.removeAttribute('style')
       removeTask(task.id)
     }
   }
