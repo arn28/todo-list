@@ -15,27 +15,13 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
     VIEW_EDIT_MODAL_MODE.VIEW,
   )
 
-  // const removeTaskItem = () => {
-  //   //TODO: Replace with a modal confirm
-  //   const removeConfirm = window.confirm(
-  //     ' ⚠️ ¿Está seguro de eliminar esta tarea?',
-  //   )
-  //   if (removeConfirm) {
-  //     removeTask(task.id)
-  //   }
-  // }
-
   const toggleStateTaskItem = () => {
     toggleStateTask(task.id)
   }
+
   return (
     <>
-      <li
-        className='card'
-        // onClick={() => {
-        //   setOpenViewEditModal(true)
-        // }}
-      >
+      <li className='card'>
         <i
           className={` ${
             task.completed ? 'fas fa-check-square' : 'far fa-square'
@@ -51,10 +37,6 @@ export const TodoItem: React.FC<IProps> = ({ task }) => {
         >
           {task.title}
         </span>
-        {/* <i
-          className='fas fa-trash-alt trashIcon icon'
-          onClick={removeTaskItem}
-        /> */}
         <TaskOptionsDropdown
           task={task}
           isTriggerIcon

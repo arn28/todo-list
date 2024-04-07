@@ -1,0 +1,19 @@
+@use '@/styles/colors' as colors;
+.attribution {
+  z-index: 1;
+  display: inline-block;
+  width: 100%;
+  position: fixed;
+  bottom: 8px;
+  font-size: 12px;
+  text-align: center;
+  color: colors.$background;
+  a {
+    display: inline-block;
+    font-size: 12px;
+    color: colors.$background;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0.5rem 0.5rem 2rem colors.$secondary;
+  }
+}
