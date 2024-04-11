@@ -11,7 +11,6 @@ import {
 import { VIEW_TASK_OPTIONS } from '@/utils/constants/tasks'
 
 interface IShowTaskOptionsDropdown {
-  // onEditClick?: () => void
   viewTaskOption: VIEW_TASK_OPTIONS
   setViewTaskOption: React.Dispatch<React.SetStateAction<VIEW_TASK_OPTIONS>>
 }
