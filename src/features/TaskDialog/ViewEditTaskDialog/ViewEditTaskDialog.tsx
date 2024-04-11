@@ -1,5 +1,5 @@
 import './ViewEditTaskDialog.scss'
-import { Button } from '@/components/Button/Button'
+import { GradientButton } from '@/components/Button'
 import { useContext, useEffect } from 'react'
 import { useState } from 'react'
 import { TasksContext } from '@/store/tasks'
@@ -148,13 +148,13 @@ export const ViewEditTaskDialog = ({
             {modalMode === VIEW_EDIT_MODAL_MODE.EDIT ? (
               <>
                 <button onClick={onCancelEdition}>Cancelar</button>
-                <Button
+                <GradientButton
                   onClick={updateTaskItem}
                   disabled={inputTitleTask.trim() === ''}
                 >
                   <i className='fas fa-save' />
                   Guardar
-                </Button>
+                </GradientButton>
               </>
             ) : (
               <>
