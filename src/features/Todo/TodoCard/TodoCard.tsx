@@ -28,12 +28,23 @@ export const TodoCard = () => {
 
   const searchedTasks = useCallback(
     () =>
-      tasks.filter((task) => {
-        const taskText = task.title.toLowerCase()
-        const searchText = inputSearchTask.toLowerCase().trim()
-        return taskText.includes(searchText)
-      }),
-    [inputSearchTask, tasks],
+      tasks
+        .filter((task) => {
+          switch (viewTaskOption) {
+            case VIEW_TASK_OPTIONS.DONE_ONLY:
+              return task.completed
+            case VIEW_TASK_OPTIONS.PENDING_ONLY:
+              return !task.completed
+            case VIEW_TASK_OPTIONS.ALL:
+              return !!task
+          }
+        })
+        .filter((task) => {
+          const taskText = task.title.toLowerCase()
+          const searchText = inputSearchTask.toLowerCase().trim()
+          return taskText.includes(searchText)
+        }),
+    [inputSearchTask, tasks, viewTaskOption],
   )
   useEffect(() => {
     setVisibleTasks(tasks)
