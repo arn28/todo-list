@@ -1,3 +1,4 @@
+import { buttonVariants } from '@/components/Button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,8 +43,13 @@ export const TaskOptionsDropdown = ({
           <i className='fas fa-ellipsis-v p-1 text-color'></i>
         </DropdownMenuTrigger>
       ) : (
-        <DropdownMenuTrigger className='text-primary-blue'>
-          Opciones
+        <DropdownMenuTrigger
+          className={buttonVariants({
+            variant: 'secondary',
+            className: 'text-primary-blue',
+          })}
+        >
+          <span className='text-primary'>Opciones</span>
         </DropdownMenuTrigger>
       )}
       <DropdownMenuContent>

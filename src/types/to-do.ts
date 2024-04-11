@@ -3,4 +3,6 @@ export type Task = {
   title: string
   description?: string
   completed: boolean
+  updateDate: Date
+  createdDate: Date
 }
