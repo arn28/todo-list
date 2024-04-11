@@ -1,17 +1,20 @@
-import { useCallback, useEffect, useState } from 'react'
 import './TodoCard.scss'
-import iconTodo from '../../../assets/iconTodo.svg'
-import { Button } from '../../../components/Button/Button'
+import { useCallback, useEffect, useState } from 'react'
+import iconTodo from '@/assets/iconTodo.svg'
+import { GradientButton } from '@/components/Button/GradientButton'
 import { TodoList } from '../TodoList/TodoList'
 import { useContext } from 'react'
-import { TasksContext } from '../../../store/tasks'
+import { TasksContext } from '@/store/tasks'
 import { AddTaskDialog } from '@/features/TaskDialog/AddTaskDialog/AddTaskDialog'
+import { TaskShowOptionsDropdown } from '../TaskShowOptionsDropdown/TaskShowOptionsDropdown'
+import { VIEW_TASK_OPTIONS } from '@/utils/constants/tasks'
 
 export const TodoCard = () => {
   const { tasks, removeAllTasks } = useContext(TasksContext)
   const [visibleTasks, setVisibleTasks] = useState(tasks)
   const [inputSearchTask, setInputSearchTask] = useState('')
   const [openAddTaskModal, setOpenAddTaskModal] = useState(false)
+  const [viewTaskOption, setViewTaskOption] = useState(VIEW_TASK_OPTIONS.ALL)
 
   const removeAllTasksItems = () => {
     //TODO: Replace with a modal confirm
@@ -76,25 +79,31 @@ export const TodoCard = () => {
                 ></i>
               )}
             </form>
-            <Button
+            <GradientButton
               onClick={() => {
                 setOpenAddTaskModal(true)
               }}
             >
               Agregar<i className='fas fa-plus-circle'></i>
-            </Button>
+            </GradientButton>
+          </div>
+          <div className='flex justify-between'>
+            <TaskShowOptionsDropdown
+              viewTaskOption={viewTaskOption}
+              setViewTaskOption={setViewTaskOption}
+            />
           </div>
           <TodoList tasks={visibleTasks} />
         </div>
         {tasks.length > 1 && !inputSearchTask && (
           <div className='footer-options'>
-            <Button
+            <GradientButton
               disabled={!tasks.length}
               type='danger'
               onClick={removeAllTasksItems}
             >
               Borrar todo <i className='fas fa-trash-alt' />
-            </Button>
+            </GradientButton>
           </div>
         )}
       </div>

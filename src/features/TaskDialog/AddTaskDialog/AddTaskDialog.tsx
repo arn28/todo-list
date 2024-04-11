@@ -1,5 +1,5 @@
 import './AddTaskDialog.scss'
-import { Button } from '@/components/Button/Button'
+import { GradientButton } from '@/components/Button'
 import { useContext } from 'react'
 import { useState } from 'react'
 import { TasksContext } from '@/store/tasks'
@@ -93,7 +93,7 @@ export const AddTaskDialog = ({
           </form>
           <DialogFooter className='gap-1'>
             <DialogClose>Cancelar</DialogClose>
-            <Button
+            <GradientButton
               onClick={() => {
                 addNewTask()
                 setOpenModal(false)
@@ -102,7 +102,7 @@ export const AddTaskDialog = ({
             >
               <i className='fas fa-plus-circle' />
               Agregar
-            </Button>
+            </GradientButton>
           </DialogFooter>
         </DialogContent>
       </Dialog>
