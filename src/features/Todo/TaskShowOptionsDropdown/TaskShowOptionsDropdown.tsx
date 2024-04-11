@@ -21,9 +21,11 @@ export const TaskShowOptionsDropdown = ({
 }: IShowTaskOptionsDropdown) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={buttonVariants({ variant: 'outline' })}>
-        Mostrar
-        <span className='text-sm font-bold text-primary'>{`: ${viewTaskOption}`}</span>
+      <DropdownMenuTrigger
+        className={buttonVariants({ variant: 'secondary', className: 'ml-1' })}
+      >
+        <span className='text-sm mr-1 text-color'>Mostrar:</span>
+        <span className='text-sm text-primary'>{`${viewTaskOption}`}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
